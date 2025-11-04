@@ -61,12 +61,20 @@ public class SkillDAO implements IDAO<Skill, Integer>{
 
     @Override
     public boolean delete(Integer id) {
-        try(EntityManager em = emf.createEntityManager()){
+        try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
 
-            Skill toDelete = em.find(Skill.class,id);
-            if(toDelete != null){
+            Skill toDelete = em.find(Skill.class, id);
+            if (toDelete != null) {
+
+                // Fjern alle tilknyttede CandidateSkill-rækker først
+                em.createQuery("DELETE FROM CandidateSkill cs WHERE cs.skill.id = :sid")
+                        .setParameter("sid", id)
+                        .executeUpdate();
+
+                // Slet skill
                 em.remove(toDelete);
+
                 em.getTransaction().commit();
                 return true;
             } else {

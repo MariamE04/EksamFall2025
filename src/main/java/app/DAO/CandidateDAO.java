@@ -61,12 +61,20 @@ public class CandidateDAO implements IDAO<Candidate, Integer>{
 
     @Override
     public boolean delete(Integer id) {
-        try(EntityManager em = emf.createEntityManager()){
+        try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
 
-            Candidate toDelete = em.find(Candidate.class,id);
-            if(toDelete != null){
+            Candidate toDelete = em.find(Candidate.class, id);
+            if (toDelete != null) {
+
+                // Fjern alle tilknyttede CandidateSkill-rækker først
+                em.createQuery("DELETE FROM CandidateSkill cs WHERE cs.candidate.id = :cid")
+                        .setParameter("cid", id)
+                        .executeUpdate();
+
+                // Slet kandidaten
                 em.remove(toDelete);
+
                 em.getTransaction().commit();
                 return true;
             } else {

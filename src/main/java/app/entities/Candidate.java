@@ -3,6 +3,7 @@ package app.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -29,11 +30,15 @@ public class Candidate {
     private String  educationBackground;
 
 
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL,  orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<CandidateSkill> candidateSkills;
+    @OneToMany(mappedBy = "candidate", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Set<CandidateSkill> candidateSkills = new HashSet<>();
 
     public void addSkill(Skill skill) {
         if (skill == null) return;
+        boolean alreadyHas = candidateSkills.stream()
+                .anyMatch(cs -> cs.getSkill().equals(skill));
+        if (alreadyHas) return;
+
         CandidateSkill candidateSkill = new CandidateSkill(this, skill);
         candidateSkills.add(candidateSkill);
         skill.getCandidateSkills().add(candidateSkill);

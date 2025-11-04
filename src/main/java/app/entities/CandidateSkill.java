@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,6 +30,19 @@ public class CandidateSkill {
     public CandidateSkill(Candidate candidate, Skill skill) {
         this.candidate = candidate;
         this.skill = skill;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CandidateSkill)) return false;
+        CandidateSkill cs = (CandidateSkill) o;
+        return candidate.equals(cs.candidate) && skill.equals(cs.skill);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(candidate, skill);
     }
 
 }

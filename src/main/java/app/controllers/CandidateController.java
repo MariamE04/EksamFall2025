@@ -4,14 +4,18 @@ import app.DAO.CandidateDAO;
 import app.DAO.SkillDAO;
 import app.config.HibernateConfig;
 import app.dtos.CandidateDTO;
+import app.dtos.SkillStatsDTO;
 import app.entities.Candidate;
 import app.entities.Skill;
+import app.enums.Category;
 import app.mappers.CandidateMapper;
+import app.servies.SkillStatsService;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CandidateController {
@@ -19,10 +23,27 @@ public class CandidateController {
     private CandidateDAO candidateDAO = new CandidateDAO(emf);
     private SkillDAO skillDAO = new SkillDAO(emf);
 
-    // GET /candidate
+    // GET /candidates
     public void getAllCandidates(Context ctx){
+        String categoryParam = ctx.queryParam("category"); // kan være null
         List<Candidate> candidates = candidateDAO.getAll();
-        List<CandidateDTO> candidateDTOS = candidates.stream().map(CandidateMapper::toDto).toList();
+
+        if (categoryParam != null) {
+            try {
+                Category filterCategory = Category.valueOf(categoryParam.toUpperCase());
+                candidates = candidates.stream()
+                        .filter(c -> c.getCandidateSkills().stream()
+                                .anyMatch(cs -> cs.getSkill().getCategory() == filterCategory))
+                        .toList();
+            } catch (IllegalArgumentException e) {
+                ctx.status(HttpStatus.BAD_REQUEST).json("Invalid category or does not exist");
+                return;
+            }
+        }
+
+        List<CandidateDTO> candidateDTOS = candidates.stream()
+                .map(CandidateMapper::toDto)
+                .toList();
         ctx.status(HttpStatus.OK).json(candidateDTOS);
     }
 
@@ -33,6 +54,9 @@ public class CandidateController {
 
         if(candidate != null){
             ctx.status(HttpStatus.OK).json(CandidateMapper.toDto(candidate));
+
+        List<SkillStatsDTO> skillStats = SkillStatsService.skillsWithStats
+
         } else {
             ctx.status(HttpStatus.NOT_FOUND).result("Candidate not found");
         }

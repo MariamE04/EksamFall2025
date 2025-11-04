@@ -17,4 +17,5 @@ public class SkillDTO {
     private Category category;
     private String description;
     private List<Integer> candidateSkills;
+
 }

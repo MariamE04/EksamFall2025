@@ -33,9 +33,16 @@ public class Populater {
                 .description("Markup for web structure")
                 .build();
 
+        Skill devops = Skill.builder()
+                .name("Docker")
+                .category(Category.DEVOPS)
+                .description("DevOps tools")
+                .build();
+
         skillDAO.create(java);
         skillDAO.create(sql);
         skillDAO.create(html);
+        skillDAO.create(devops);
 
         // Opretere kandidater
         Candidate candidate1 = Candidate.builder()
@@ -59,6 +66,7 @@ public class Populater {
         candidateDAO.addSkillToCandidate(candidate1.getId(), sql.getId());
         candidateDAO.addSkillToCandidate(candidate2.getId(), html.getId());
         candidateDAO.addSkillToCandidate(candidate2.getId(), sql.getId());
+        candidateDAO.addSkillToCandidate(candidate1.getId(), devops.getId());
 
         System.out.println("Testdata oprettet med kandidater og skills!");
     }

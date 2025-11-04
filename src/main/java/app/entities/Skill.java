@@ -4,6 +4,7 @@ import app.enums.Category;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -24,6 +25,6 @@ public class Skill {
     private Category category;
     private String description;
 
-    @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<CandidateSkill> candidateSkills;
+    @OneToMany(mappedBy = "skill",cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Set<CandidateSkill> candidateSkills = new HashSet<>();;
 }
