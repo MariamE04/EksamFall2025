@@ -1,0 +1,49 @@
+### Trip planner Tests
+GET http://localhost:7071/api/candidateMatch
+
+###
+
+### Get all candidates
+GET http://localhost:7071/api/candidateMatch/candidates
+
+###
+
+### get by id
+GET http://localhost:7071/api/candidateMatch/candidates/1
+
+###
+
+### Create candidate
+GET http://localhost:7071/api/candidateMatch/candidates
+Content-Type: application/json
+
+{
+  "name": "test El-Mir",
+  "phone": "1345801",
+  "educationBackground": "Datamatiker",
+  "candidateSkills": []
+}
+
+###
+
+### Update workshop
+PUT http://localhost:7071/api/candidateMatch/candidates/1
+Content-Type: application/json
+
+{
+    "name": "Mariam El-Mir Updated",
+    "phone": "123000",
+    "educationBackground": "Datamatiker - Updated",
+    "candidateSkills": []
+}
+
+
+###
+
+### Delete workshop
+DELETE http://localhost:7071/api/candidateMatch/candidates/2
+
+###
+
+###
+PUT http://localhost:7071/api/candidateMatch/candidates/1/skills/1
