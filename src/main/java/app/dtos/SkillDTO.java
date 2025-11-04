@@ -14,6 +14,7 @@ import java.util.List;
 public class SkillDTO {
     private int id;
     private String name;
+    private String slug;
     private Category category;
     private String description;
     private List<Integer> candidateSkills;

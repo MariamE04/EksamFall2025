@@ -20,6 +20,7 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String slug;
 
     @Enumerated(EnumType.STRING)
     private Category category;

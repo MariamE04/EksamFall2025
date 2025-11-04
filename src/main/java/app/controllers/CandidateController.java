@@ -48,15 +48,24 @@ public class CandidateController {
     }
 
     // GET /candidate/{id}
-    public void getCandidateById(Context ctx){
+    public void getCandidateById(Context ctx) {
         int id = Integer.parseInt(ctx.pathParam("id"));
         Candidate candidate = candidateDAO.getById(id);
 
-        if(candidate != null){
-            ctx.status(HttpStatus.OK).json(CandidateMapper.toDto(candidate));
+        if(candidate != null) {
+            // Mapper CandidateSkill til SkillStatsDTO (kun slug)
+            List<SkillStatsDTO> skillStatsInput = candidate.getCandidateSkills().stream()
+                    .map(cs -> new SkillStatsDTO(cs.getSkill().getName().toLowerCase().replace(" ", "-"), 0, 0))
+                    .toList();
 
-        List<SkillStatsDTO> skillStats = SkillStatsService.skillsWithStats
+            // Henter berigede data fra API
+            List<SkillStatsDTO> enrichedSkills = SkillStatsService.skillsWithStats(skillStatsInput);
 
+            // tilsidst Returner JSON
+            ctx.status(HttpStatus.OK).json(Map.of(
+                    "candidate", CandidateMapper.toDto(candidate),
+                    "skills", enrichedSkills
+            ));
         } else {
             ctx.status(HttpStatus.NOT_FOUND).result("Candidate not found");
         }

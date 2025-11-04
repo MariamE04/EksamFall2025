@@ -21,6 +21,7 @@ public class SkillMapper {
         return new SkillDTO(
                 skill.getId(),
                 skill.getName(),
+                skill.getSlug(),
                 skill.getCategory(),
                 skill.getDescription(),
                 candidateIds
