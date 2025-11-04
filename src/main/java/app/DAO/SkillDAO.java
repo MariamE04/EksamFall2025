@@ -31,10 +31,11 @@ public class SkillDAO implements IDAO<Skill, Integer>{
     public Skill getById(Integer id) {
         try (EntityManager em = emf.createEntityManager()) {
             return em.createQuery(
-                            "SELECT s FROM Skill s WHERE s.id =:id", Skill.class)
+                            "SELECT s FROM Skill s LEFT JOIN FETCH s.candidateSkills WHERE s.id = :id", Skill.class
+                    )
                     .setParameter("id", id)
                     .getSingleResult();
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -51,9 +52,10 @@ public class SkillDAO implements IDAO<Skill, Integer>{
 
     @Override
     public List<Skill> getAll() {
-        try(EntityManager em = emf.createEntityManager()){
-            List<Skill> skills = em.createQuery("SELECT s FROM Skill s", Skill.class).getResultList();
-            return skills;
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery(
+                    "SELECT DISTINCT s FROM Skill s LEFT JOIN FETCH s.candidateSkills", Skill.class
+            ).getResultList();
         }
     }
 

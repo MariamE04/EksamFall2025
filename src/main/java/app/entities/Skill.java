@@ -24,6 +24,6 @@ public class Skill {
     private Category category;
     private String description;
 
-    @OneToMany(mappedBy = "skill", cascade = { CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CandidateSkill> candidateSkills;
 }

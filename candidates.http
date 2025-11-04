@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ###
 
-### Update workshop
+### Update
 PUT http://localhost:7071/api/candidateMatch/candidates/1
 Content-Type: application/json
 
@@ -40,10 +40,55 @@ Content-Type: application/json
 
 ###
 
-### Delete workshop
+### Delete
 DELETE http://localhost:7071/api/candidateMatch/candidates/2
 
 ###
 
 ###
 PUT http://localhost:7071/api/candidateMatch/candidates/1/skills/1
+
+###
+
+
+### Skill ###
+
+### Get all
+GET http://localhost:7071/api/candidateMatch/skills
+
+###
+
+### get by id
+GET http://localhost:7071/api/candidateMatch/skills/1
+
+###
+
+### Create candidate
+GET http://localhost:7071/api/candidateMatch/skills
+Content-Type: application/json
+
+{
+  "name": "Docker",
+  "category": "DEVOPS",
+  "description": "Containerization tool"
+}
+
+###
+
+### Update
+PUT http://localhost:7071/api/candidateMatch/skills/1
+Content-Type: application/json
+
+{
+  "name": "Java -updated",
+  "category": "PROG_LANG",
+  "description": "Java backend development -updated"
+}
+
+
+###
+
+### Delete
+DELETE http://localhost:7071/api/candidateMatch/skills/3
+
+###
