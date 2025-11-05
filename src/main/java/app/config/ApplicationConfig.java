@@ -1,5 +1,7 @@
 package app.config;
 
+import Security.rest.ISecurityController;
+import Security.rest.SecurityController;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import app.routes.Routes;
@@ -14,7 +16,7 @@ public class ApplicationConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(ApplicationConfig.class);
 
-   // private static ISecurityController securityController = new SecurityController();
+   private static ISecurityController securityController = new SecurityController();
 
     private static Routes routes = new Routes(); // instans af Routes, som indeholder alle endpoints
     private static ApplicationConfig appConfig;
@@ -32,11 +34,11 @@ public class ApplicationConfig {
     }
 
 
-   /* public ApplicationConfig checkSecurityRoles() {
+   public ApplicationConfig checkSecurityRoles() {
         app.beforeMatched(securityController.authenticate()); // check if there is a valid token in the header
         app.beforeMatched(securityController.authorize()); // check if the user has the required role
         return appConfig;
-    } */
+    }
 
     public static void configuration(JavalinConfig config) {
         config.showJavalinBanner = false;
@@ -103,7 +105,7 @@ public class ApplicationConfig {
                     ));
         });
 
-       // this.checkSecurityRoles();
+        this.checkSecurityRoles();
 
         this.app.start(port); // starter Javalin på den givne port (binder socket og starter worker-tråde).
         return app;

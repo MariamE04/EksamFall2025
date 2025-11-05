@@ -3,6 +3,17 @@ GET http://localhost:7071/api/candidateMatch
 
 ###
 
+### login
+POST http://localhost:7071/api/candidateMatch/auth/login
+Content-Type: application/json
+
+{
+"username": "admin",
+"password": "admin123"
+}
+
+###
+
 ### Get all candidates
 GET http://localhost:7071/api/candidateMatch/candidates
 
@@ -21,6 +32,7 @@ GET http://localhost:7071/api/candidateMatch/candidates/1
 ### Create candidate
 POST http://localhost:7071/api/candidateMatch/candidates
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE3NjYsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.GMPZMtWWmXiuGskS2iHx7_p_9WFT2ugZxv4kMfYCOwg
 
 {
   "name": "test El-Mir",
@@ -34,6 +46,7 @@ Content-Type: application/json
 ### Update
 PUT http://localhost:7071/api/candidateMatch/candidates/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE3NjYsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.GMPZMtWWmXiuGskS2iHx7_p_9WFT2ugZxv4kMfYCOwg
 
 {
     "name": "Mariam El-Mir Updated",
@@ -47,6 +60,8 @@ Content-Type: application/json
 
 ### Delete
 DELETE http://localhost:7071/api/candidateMatch/candidates/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE3NjYsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.GMPZMtWWmXiuGskS2iHx7_p_9WFT2ugZxv4kMfYCOwg
+
 
 ###
 
@@ -71,6 +86,7 @@ GET http://localhost:7071/api/candidateMatch/skills/1
 ### Create candidate
 GET http://localhost:7071/api/candidateMatch/skills
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE4OTgsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.DUjzzIbqI5LYsiHLUpE-RhHDEgHGHDKwoktgIlPSBgI
 
 {
   "name": "Docker",
@@ -83,6 +99,7 @@ Content-Type: application/json
 ### Update
 PUT http://localhost:7071/api/candidateMatch/skills/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE4OTgsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.DUjzzIbqI5LYsiHLUpE-RhHDEgHGHDKwoktgIlPSBgI
 
 {
   "name": "Java -updated",
@@ -95,5 +112,6 @@ Content-Type: application/json
 
 ### Delete
 DELETE http://localhost:7071/api/candidateMatch/skills/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE4OTgsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.DUjzzIbqI5LYsiHLUpE-RhHDEgHGHDKwoktgIlPSBgI
 
 ###

@@ -13,11 +13,11 @@ public class CandidateRoutes {
    public EndpointGroup getRoutes() {
         return () -> {
             get(candidateController::getAllCandidates);
-            post(candidateController::createCandidate);
+            post(candidateController::createCandidate, Role.ADMIN);
             path("/{id}", () -> {
                 get(candidateController::getCandidateById);
-                put(candidateController::updateCandidate);
-                delete(candidateController::deleteCandidate);
+                put(candidateController::updateCandidate, Role.ADMIN);
+                delete(candidateController::deleteCandidate, Role.ADMIN);
             });
             path("{candidateId}/skills/{skillId}", () -> put(candidateController::addSkillToCandidate));
         };

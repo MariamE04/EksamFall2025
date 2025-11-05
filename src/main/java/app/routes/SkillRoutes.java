@@ -1,5 +1,6 @@
 package app.routes;
 
+import Security.enums.Role;
 import app.controllers.SkillController;
 import io.javalin.apibuilder.EndpointGroup;
 
@@ -15,11 +16,11 @@ public class SkillRoutes {
 
         return () -> {
             get(skillController::getAllSkills);
-            post(skillController::createSkill);
+            post(skillController::createSkill, Role.ADMIN);
             path("/{id}", () -> {
                 get(skillController::getSkillById);
-                put(skillController::updateSkill);
-                delete(skillController::deleteSkill);
+                put(skillController::updateSkill, Role.ADMIN);
+                delete(skillController::deleteSkill, Role.ADMIN);
             });
         };
     }

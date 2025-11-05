@@ -1,5 +1,6 @@
 package app.routes;
 
+import Security.rest.SecurtiyRoutes;
 import app.controllers.CandidateController;
 import app.entities.Candidate;
 import app.mappers.CandidateMapper;
@@ -12,6 +13,7 @@ public class Routes {
 
     private CandidateRoutes candidateRoutes = new CandidateRoutes();
     private SkillRoutes skillRoutes = new SkillRoutes();
+    private SecurtiyRoutes securtiyRoutes = new SecurtiyRoutes();
 
     public EndpointGroup getRoutes() {
         return () -> {
@@ -20,6 +22,8 @@ public class Routes {
 
             path("/candidates", candidateRoutes.getRoutes());
             path("/skills", skillRoutes.getRoutes());
+            path("/auth", securtiyRoutes.getOpenRoutes());
+            path("/protected", securtiyRoutes.getSecuredRoutes());
 
         };
     }

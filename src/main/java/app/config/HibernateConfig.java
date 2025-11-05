@@ -1,5 +1,7 @@
 package app.config;
 
+import Security.entities.Role;
+import Security.entities.User;
 import app.entities.Candidate;
 import app.entities.CandidateSkill;
 import app.entities.Skill;
@@ -45,8 +47,8 @@ public class HibernateConfig {
         configuration.addAnnotatedClass(Candidate.class);
         configuration.addAnnotatedClass(Skill.class);
         configuration.addAnnotatedClass(CandidateSkill.class);
-        //configuration.addAnnotatedClass(User.class);
-        //configuration.addAnnotatedClass(Role.class);
+        configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(Role.class);
     }
 
     // opretter selve forbindelsen til databasen og vælger det rigtige miljø.

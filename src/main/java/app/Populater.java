@@ -1,5 +1,8 @@
 package app;
 
+import Security.daos.SecurityDAO;
+import Security.entities.Role;
+import Security.entities.User;
 import app.DAO.CandidateDAO;
 import app.DAO.SkillDAO;
 import app.config.HibernateConfig;
@@ -13,6 +16,15 @@ public class Populater {
     public static void populate(EntityManagerFactory emf) {
         CandidateDAO candidateDAO = new CandidateDAO(emf);
         SkillDAO skillDAO = new SkillDAO(emf);
+        SecurityDAO securityDAO = new SecurityDAO(emf);
+
+        try{
+            User admin = securityDAO.createUser("admin", "admin123");
+            securityDAO.createRole("ADMIN");
+            securityDAO.addUserRole(admin.getUsername(), "ADMIN");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Opretter skills
         Skill java = Skill.builder()
