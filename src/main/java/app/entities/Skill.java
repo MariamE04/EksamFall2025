@@ -1,6 +1,7 @@
 package app.entities;
 
 import app.enums.Category;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,5 +28,6 @@ public class Skill {
     private String description;
 
     @OneToMany(mappedBy = "skill",cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @Builder.Default
     private Set<CandidateSkill> candidateSkills = new HashSet<>();;
 }

@@ -1,5 +1,6 @@
 package app.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 @Getter
@@ -8,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SkillStatsDTO {
     private String slug;
     private int popularityScore;

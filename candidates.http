@@ -83,7 +83,7 @@ GET http://localhost:7071/api/candidateMatch/skills/1
 
 ###
 
-### Create candidate
+### Create
 GET http://localhost:7071/api/candidateMatch/skills
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE4OTgsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.DUjzzIbqI5LYsiHLUpE-RhHDEgHGHDKwoktgIlPSBgI
