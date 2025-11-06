@@ -19,9 +19,10 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CandidateControllerTest {
+class SkillControllerTest {
     private static Javalin app;
     private static EntityManagerFactory emf;
     private String token;
@@ -37,7 +38,7 @@ class CandidateControllerTest {
         // REST-Assured base setup
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 7071;
-        RestAssured.basePath = "/api/candidateMatch/candidates";
+        RestAssured.basePath = "/api/candidateMatch/skills";
     }
 
 
@@ -50,6 +51,7 @@ class CandidateControllerTest {
 
             // Sletter gamle data først
             em.createQuery("DELETE FROM CandidateSkill").executeUpdate();
+            em.createQuery("DELETE FROM CandidateSkill").executeUpdate();
             em.createQuery("DELETE FROM Candidate ").executeUpdate();
             em.createQuery("DELETE FROM Skill").executeUpdate();
             em.createQuery("DELETE FROM User").executeUpdate();
@@ -57,7 +59,7 @@ class CandidateControllerTest {
             em.createNativeQuery("ALTER SEQUENCE candidate_id_seq RESTART WITH 1").executeUpdate();
             em.createNativeQuery("ALTER SEQUENCE skill_id_seq RESTART WITH 1").executeUpdate();
 
-            // Opretter admin-bruger og role
+            // Opret admin-bruger og role
             User admin = new User("admin", "admin123");
             Role adminRole = new Role("ADMIN");
             admin.addRole(adminRole);
@@ -114,7 +116,7 @@ class CandidateControllerTest {
             em.close();
         }
 
-        // Henter token fra login-endpointet EFTER commit
+        // Hent token fra login-endpointet EFTER commit
         token = given()
                 .contentType("application/json")
                 .body("{\"username\": \"admin\", \"password\": \"admin123\"}")
@@ -128,7 +130,7 @@ class CandidateControllerTest {
     }
 
     @Test
-    void getAllCandidates() {
+    void getAllSkills() {
         given()
                 .when()
                 .get("/")
@@ -139,52 +141,46 @@ class CandidateControllerTest {
     }
 
     @Test
-    void getCandidateById() {
+    void getSkillById() {
         given()
                 .when()
                 .get("/1")
                 .then()
                 .statusCode(200)
-                .body("candidate.name", equalTo("Mariam El-Mir"))
-                .body("candidate.phone", equalTo("12345678"))
-                .body("candidate.educationBackground", equalTo("Datamatiker"))
-                .body("skills.size()", greaterThanOrEqualTo(2))
-                .body("skills[0].slug", equalTo("java"));
-
+                .body("name", equalTo("Java"))
+                .body("category", equalTo("PROG_LANG"))
+                .body("description", equalTo("Java backend development"));
     }
 
     @Test
-    void createCandidate() {
-        String newCandidate = """
+    void createSkill() {
+        String newSkill = """
                 {
-                  "name": "test El-Mir",
-                  "phone": "13415801",
-                  "educationBackground": "Datamatiker",
-                  "candidateSkills": []
+                  "name": "Docker",
+                  "category": "DEVOPS",
+                  "description": "Containerization tool"
                 }
                 """;
 
         given()
                 .header("Authorization", "Bearer " + token)
                 .contentType("application/json")
-                .body(newCandidate)
+                .body(newSkill)
                 .when()
                 .post("/")
                 .then()
                 .statusCode(201)
                 .body("name", notNullValue())
-                .body("phone", notNullValue());
-
+                .body("category", notNullValue());
     }
 
     @Test
-    void updateCandidate() {
+    void updateSkill() {
         String json = """
                 {
-                  "name": "Mariam El-Mir -updated",
-                  "phone": "1234560",
-                  "educationBackground": "Datamatiker -updated",
-                  "candidateSkills": []
+                  "name": "Java -updated",
+                  "category": "PROG_LANG",
+                  "description": "Java backend development -updated"
                 }
                 """;
 
@@ -196,12 +192,13 @@ class CandidateControllerTest {
                 .put("/1")
                 .then()
                 .statusCode(200)
-                .body("name", equalTo("Mariam El-Mir -updated"))
-                .body("educationBackground", equalTo("Datamatiker -updated"));
+                .body("name", equalTo("Java -updated"))
+                .body("description", equalTo("Java backend development -updated"))
+                .body("category", equalTo("PROG_LANG"));
     }
 
     @Test
-    void deleteCandidate() {
+    void deleteSkill() {
         given()
                 .header("Authorization", "Bearer " + token)
                 .when()
@@ -214,25 +211,5 @@ class CandidateControllerTest {
                 .get("/2")
                 .then()
                 .statusCode(404);
-    }
-
-    @Test
-    void addSkillToCandidate() {
-        // Tilføjer skill 1 til kandidat 1
-        given()
-                .when()
-                .put("/1/skills/1")
-                .then()
-                .statusCode(200)
-                .body(equalTo("Skill added to candidate"));
-
-
-        // Verificer at skillen nu er tilføjet
-        given()
-                .when()
-                .get("/1")
-                .then()
-                .statusCode(200)
-                .body("candidate.candidateSkills", hasItem(1));
     }
 }
