@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SkillController {
     private static final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
-    private CandidateDAO candidateDAO = new CandidateDAO(emf);
+    //private CandidateDAO candidateDAO = new CandidateDAO(emf);
     private SkillDAO skillDAO = new SkillDAO(emf);
 
     // GET /skill

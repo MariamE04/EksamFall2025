@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class CandidateController {
     private static final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
     private CandidateDAO candidateDAO = new CandidateDAO(emf);
-    private SkillDAO skillDAO = new SkillDAO(emf);
+   // private SkillDAO skillDAO = new SkillDAO(emf);
 
     // GET /candidates
     public void getAllCandidates(Context ctx){

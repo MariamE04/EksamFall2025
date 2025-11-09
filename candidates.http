@@ -32,7 +32,7 @@ GET http://localhost:7071/api/candidateMatch/candidates/1
 ### Create candidate
 POST http://localhost:7071/api/candidateMatch/candidates
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE3NjYsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.GMPZMtWWmXiuGskS2iHx7_p_9WFT2ugZxv4kMfYCOwg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjI1Mzk5NjUsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.jTFYo-V9578j10pezo5e-Um9NGH4kD-GvCkMgXgIMHk
 
 {
   "name": "test El-Mir",
@@ -84,7 +84,7 @@ GET http://localhost:7071/api/candidateMatch/skills/1
 ###
 
 ### Create
-GET http://localhost:7071/api/candidateMatch/skills
+POST http://localhost:7071/api/candidateMatch/skills
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcIk1hcmlhbSBFbG1pclwiIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIzNDE4OTgsInJvbGVzIjoiQURNSU4iLCJ1c2VybmFtZSI6ImFkbWluIn0.DUjzzIbqI5LYsiHLUpE-RhHDEgHGHDKwoktgIlPSBgI
 
