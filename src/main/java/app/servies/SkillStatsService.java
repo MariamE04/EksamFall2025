@@ -51,11 +51,11 @@ public class SkillStatsService {
             // Parser JSON
             SkillStatsResponse statsResponse = objectMapper.readValue(response.body(), SkillStatsResponse.class);
 
-            // Map API data til slugs
+            // Map API data til slugs (finde stats for en bestemt slug hurtigt)
             Map<String, SkillStatsDTO> statsMap = statsResponse.getData().stream()
                     .collect(Collectors.toMap(SkillStatsDTO::getSlug, s -> s));
 
-            // Berig skills
+            // Berig skills (tjekker om API’et har data for dens slug)
             for (SkillStatsDTO s : skills) {
                 if (statsMap.containsKey(s.getSlug())) {
                     SkillStatsDTO stats = statsMap.get(s.getSlug());

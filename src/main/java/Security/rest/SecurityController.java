@@ -30,7 +30,7 @@ public class SecurityController implements ISecurityController{
         return (Context ctx) -> {
             User user = ctx.bodyAsClass(User.class);
             try {
-                User verifedUser = securityDAO.getVerifiedUser(user.getUsername(), user.getPassword());
+                    User verifedUser = securityDAO.getVerifiedUser(user.getUsername(), user.getPassword());
                 Set<String> stringRoles = verifedUser.getRoles()
                         .stream().map(role -> role.getRolename())
                         .collect(Collectors.toSet());

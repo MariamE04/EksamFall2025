@@ -1,8 +1,6 @@
 package app.mappers;
 
-import app.dtos.CandidateDTO;
 import app.dtos.SkillDTO;
-import app.entities.Candidate;
 import app.entities.CandidateSkill;
 import app.entities.Skill;
 

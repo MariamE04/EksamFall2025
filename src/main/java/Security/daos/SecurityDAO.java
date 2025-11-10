@@ -11,18 +11,11 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
 
 public class SecurityDAO implements ISecurityDAO {
-
-    private static ISecurityDAO instance;
     private static EntityManagerFactory emf;
 
     public SecurityDAO(EntityManagerFactory _emf) {
         emf = _emf;
     }
-
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
-
 
     @Override
     public User getVerifiedUser(String username, String password) throws ValidationException {
@@ -76,16 +69,6 @@ public class SecurityDAO implements ISecurityDAO {
             em.getTransaction().commit();
 
             return foundUser;
-        }
-    }
-
-    public User getUserByUsername(String username) {
-        try (EntityManager em = emf.createEntityManager()) {
-            return em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
-                    .setParameter("username", username)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
         }
     }
 

@@ -67,7 +67,7 @@ public class CandidateDAO implements IDAO<Candidate, Integer>{
             Candidate toDelete = em.find(Candidate.class, id);
             if (toDelete != null) {
 
-                // Fjern alle tilknyttede CandidateSkill-rækker først
+                // Fjern alle tilknyttede CandidateSkill-rækker først (foreign key constraint error.)
                 em.createQuery("DELETE FROM CandidateSkill cs WHERE cs.candidate.id = :cid")
                         .setParameter("cid", id)
                         .executeUpdate();
